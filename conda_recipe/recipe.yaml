@@ -1,0 +1,31 @@
+context:
+  name: dylib
+  version: 2.2.1
+
+package:
+  name: ${{ name }}
+  version: ${{ version }}
+
+source:
+  - git: https://github.com/martin-olivier/dylib.git
+    tag: v${{ version }}
+
+build:
+  number: 1000
+
+requirements:
+  build:
+    - ${{ compiler('cxx') }}
+    - cmake
+    - ninja
+  host:
+
+tests:
+  - script:
+      - if: unix
+        then: test -f ${PREFIX}/include/dylib.hpp
+
+about:
+  license: MIT
+  license_file: LICENSE
+  summary: The goal of this C++ library is to load dynamic libraries (.so, .dll, .dylib) and access its functions and global variables at runtime
